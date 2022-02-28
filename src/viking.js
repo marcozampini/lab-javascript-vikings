@@ -50,8 +50,26 @@ class War {
   addSaxon(saxon) {
     this.saxonArmy.push(saxon)
   }
+
+  attack(attackingArmy, attackedArmy) {
+    const attackedSoldierIndex = Math.floor(Math.random() * attackedArmy.length)
+    const attackedSoldier = attackedArmy[attackedSoldierIndex]
+    const AttackingSoldierIndex = Math.floor(
+      Math.random() * attackingArmy.length
+    )
+    const attackingSoldier = attackingArmy[AttackingSoldierIndex]
+    const damageMessage = attackedSoldier.receiveDamage(
+      attackingSoldier.strength
+    )
+
+    if (damageMessage.endsWith('combat')) {
+      attackedArmy.splice(attackedSoldierIndex, 1)
+    }
+    return damageMessage
+  }
+
   vikingAttack() {
-    const chosenSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length)
+    /*const chosenSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length)
     const chosenVikingIndex = Math.floor(Math.random() * this.vikingArmy.length)
 
     this.saxonArmy[chosenSaxonIndex].receiveDamage(
@@ -62,11 +80,12 @@ class War {
       this.saxonArmy.splice(chosenSaxonIndex, 1)
       return `A Saxon has died in combat`
     } else
-      return `A Saxon has received ${this.vikingArmy[chosenVikingIndex].strength} points of damage`
+      return `A Saxon has received ${this.vikingArmy[chosenVikingIndex].strength} points of damage`*/
+    return this.attack(this.vikingArmy, this.saxonArmy)
   }
 
   saxonAttack() {
-    const chosenVikingIndex = Math.floor(Math.random() * this.vikingArmy.length)
+    /*const chosenVikingIndex = Math.floor(Math.random() * this.vikingArmy.length)
     const chosenSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length)
 
     this.vikingArmy[chosenVikingIndex].receiveDamage(
@@ -77,7 +96,8 @@ class War {
       let deadViking = this.vikingArmy.splice(chosenVikingIndex, 1)
       return `${deadViking.name} has died in combat`
     } else
-      return `${this.vikingArmy[chosenVikingIndex].name} has received ${this.saxonArmy[chosenSaxonIndex].strength} points of damage`
+      return `${this.vikingArmy[chosenVikingIndex].name} has received ${this.saxonArmy[chosenSaxonIndex].strength} points of damage`*/
+    return this.attack(this.saxonArmy, this.vikingArmy)
   }
   showStatus() {
     if (this.saxonArmy.length === 0)
